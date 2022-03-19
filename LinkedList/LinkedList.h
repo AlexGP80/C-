@@ -24,6 +24,7 @@ private:
 class LinkedList {
 public:
   LinkedList();
+  LinkedList(initializer_list<int> list);
   ~LinkedList();
   void append(int value);
   int pop();

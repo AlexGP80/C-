@@ -10,6 +10,14 @@ LinkedList::LinkedList()
 {
 }
 
+LinkedList::LinkedList(initializer_list<int> list)
+  :head{nullptr}, tail{nullptr}, length{0}
+{
+  for (int i: list) {
+    this->append(i);
+  }
+}
+
 LinkedList::~LinkedList()
 {
   while (this->head != nullptr) {
@@ -59,22 +67,15 @@ int LinkedList::pop()
 }
 
 int main(char *args) {
-  LinkedList *list = new LinkedList();
+  LinkedList list = {1,2,3,4,5,6,7,8,9,10};
 
-  try {
-    for (int i=0; i!=100'000'000; ++i) {
-      list->append(i);
+
+  for (int i=0; i!=15; ++i) {
+    try {
+      cout << list.pop() << endl;
+    } catch (out_of_range err) {
+      cout << err.what() << endl;
     }
-  } catch (std::bad_alloc err) {
-    delete list;
-    list = nullptr;
-    cout << err.what() << endl;
-    return -1;
   }
-
-  for (int i=0; i!=5; ++i)
-    cout << list->pop() << endl;
-
-  delete list;
 
 }
