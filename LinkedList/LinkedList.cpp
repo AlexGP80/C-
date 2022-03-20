@@ -6,12 +6,12 @@ Node::Node(int value)
 }
 
 LinkedList::LinkedList()
-  :head{nullptr}, tail{nullptr}, length{0}
+  :length{0}, head{nullptr}, tail{nullptr}
 {
 }
 
 LinkedList::LinkedList(initializer_list<int> list)
-  :head{nullptr}, tail{nullptr}, length{0}
+  :length{0}, head{nullptr}, tail{nullptr}
 {
   for (int i: list) {
     this->append(i);
@@ -73,7 +73,7 @@ int main(int, char**) {
   for (int i=0; i!=15; ++i) {
     try {
       cout << list.pop() << endl;
-    } catch (out_of_range err) {
+    } catch (out_of_range &err) {
       cout << err.what() << endl;
     }
   }
