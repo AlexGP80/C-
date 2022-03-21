@@ -4,6 +4,26 @@ project(mythras_characters)
 # GoogleTest requires at least C++11
 set(CMAKE_CXX_STANDARD 11)
 
+# Bring the headers into the project
+include_directories(include)
+
+# Bring the sources into the project
+add_library(rollLib SHARED
+  src/Roll.cpp)
+set_target_properties(rollLib PROPERTIES PUBLIC_HEADER include/Roll.h)
+target_include_directories(rollLib PRIVATE include)
+target_include_directories(rollLib PRIVATE src)
+install(TARGETS rollLib
+    LIBRARY DESTINATION &{CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+add_executable(characters src/Roll.cpp src/mchars.cpp)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -13,28 +33,9 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# Bring the headers into the project
-include_directories(include)
-
-# Bring the sources into the project
-file(GLOB SOURCES "src/*.cpp")
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-add_executable(characters ${SOURCES})
+INCLUDE_DIRECTORIES(${gtest_SOURCE_DIR}/include ${COMMON_INCLUDES})
 
 enable_testing()
 
-add_executable(
-  hello_test
-  ./src/test/hello_test.cc
-)
-target_link_libraries(
-  hello_test
-  gtest_main
-)
-
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+add_subdirectory(./src/test)
