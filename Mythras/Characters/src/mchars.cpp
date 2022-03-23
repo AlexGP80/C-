@@ -2,8 +2,10 @@
 #include "Characteristic.h"
 #include "Roll.h"
 
+using namespace roll;
+
 int main(int, char **){
-  Characteristic ch("puto", 13, 18, 13);
+  Characteristic ch("prueba", 13, 18, 13);
 
   if (Roll::goodRollStr("1d6"))
     cout << "1d6 ok" << endl;
@@ -15,7 +17,6 @@ int main(int, char **){
   else
     cout << "0d6 ok" << endl;
 
-  //TODO: Herramienta para tests unitarios en C++
 
   return 0;
 }

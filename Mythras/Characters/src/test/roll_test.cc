@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "Roll.h"
 
+using namespace roll;
+
 // Check invalid characters in roll strings
 TEST(RollTest, CheckInvalidCharsRollStr) {
   EXPECT_FALSE(Roll::goodRollStr("A"));

@@ -4,20 +4,23 @@
 #include <string>
 #include <regex>
 
-using namespace std;
+namespace roll {
 
-class Roll {
-public:
-  // throwing invalid_argument if the roll is not well formatted
-  Roll(string);
-  int roll();
-  int getMinVal();
-  int getMaxVal();
-  static bool goodRollStr(string);
-private:
-  string rollStr;
-  int minVal;
-  int maxVal;
-};
+  using namespace std;
 
+  class Roll {
+  public:
+    // throwing invalid_argument if the roll is not well formatted
+    Roll(string);
+    int roll();
+    int getMinVal();
+    int getMaxVal();
+    static bool goodRollStr(string);
+  private:
+    string rollStr;
+    int minVal;
+    int maxVal;
+  };
+
+}
 #endif
