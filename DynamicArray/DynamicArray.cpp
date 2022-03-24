@@ -1,7 +1,7 @@
 #include "DynamicArray.hpp"
 #include <iostream>
 
-class DynamicArrayImpl {
+class DynamicArray::DynamicArrayImpl {
 public:
   int size;
   int maxSize;
@@ -26,7 +26,7 @@ public:
 
 DynamicArray::DynamicArray()
 {
-    this->impl = new DynamicArrayImpl();
+    this->impl = new DynamicArray::DynamicArrayImpl();
 }
 
 DynamicArray::~DynamicArray()

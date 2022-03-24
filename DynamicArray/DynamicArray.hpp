@@ -1,6 +1,6 @@
 using namespace std;
 
-class DynamicArrayImpl;
+
 
 class DynamicArray {
 public:
@@ -10,6 +10,7 @@ public:
   int &operator[](int i);
   void add(int n);
 private:
+  class DynamicArrayImpl;
   DynamicArrayImpl* impl; // TODO: Change to unique_ptr
   //TODO: make class non copyable
 };
