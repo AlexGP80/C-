@@ -60,13 +60,27 @@ void Graph::print() {
 
 
 int main(int, char**) {
+  random_device rd;
   Graph g;
-  g.insert(251, {});
-  g.insert(542, {251,13}); //13 should not be inserted
-  g.insert(308, {251});
-  g.insert(100, {308, 542});
-  g.insert(846, {846, 251});
-  g.insert(251, {542, 308, 846});
+  vector<int> keys = {};
+  for (int i=0; i!=10; ++i) {
+    int key = rd()%1000;
+    keys.push_back(key);
+    g.insert(key, {});
+  }
+
+  for (int i=0; i!=100; ++i) {
+    int key = rd()%1000;
+    keys.push_back(key);
+    g.insert(key, {keys[rd()%keys.size()], keys[rd()%keys.size()], keys[rd()%keys.size()]});
+  }
+
+  for (int i=0; i!=10; ++i) {
+    int key = keys[i];
+    g.insert(key, {keys[rd()%keys.size()], keys[rd()%keys.size()], keys[rd()%keys.size()]});
+  }
+
+
   g.print();
   return 0;
 }
