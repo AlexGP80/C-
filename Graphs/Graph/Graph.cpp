@@ -24,28 +24,19 @@ Graph::~Graph() {
   this->nodes = nullptr;
 }
 
-void Graph::insert(int data, vector<int> *neighbors) {
+void Graph::insert(int data, initializer_list<int> neighbors) {
   vector<int> *checked_neighbors = new vector<int>();
-  for (int neighbor: *neighbors) {
-    if (this->nodes->count(neighbor)) {
+  for (int neighbor: neighbors) {
+    if (this->nodes->count(neighbor) || neighbor == data) {
       checked_neighbors->push_back(neighbor);
     }
   }
 
-  // OJO
-  delete neighbors;
-  neighbors = checked_neighbors;
-  checked_neighbors = nullptr;
-
   if (this->nodes->count(data)) {
-    //FIXME: memory leak
-    Node *node = nodes->find(data)->second;
-    if (node != nullptr) {
-      delete node;
-      node = new Node(data, neighbors);
-    }
+    delete this->nodes->at(data);
+    this->nodes->at(data) = new Node(data, checked_neighbors);
   } else {
-    this->nodes->insert({data, new Node(data, neighbors)});
+    this->nodes->insert({data, new Node(data, checked_neighbors)});
   }
 }
 
@@ -70,11 +61,12 @@ void Graph::print() {
 
 int main(int, char**) {
   Graph g;
-  g.insert(251, new vector<int>({}));
-  g.insert(542, new vector<int>({251, 13})); //13 should not be inserted
-  g.insert(308, new vector<int>({251}));
-  g.insert(100, new vector<int>({308, 542}));
-  g.insert(846, new vector<int>({846, 251}));
+  g.insert(251, {});
+  g.insert(542, {251,13}); //13 should not be inserted
+  g.insert(308, {251});
+  g.insert(100, {308, 542});
+  g.insert(846, {846, 251});
+  g.insert(251, {542, 308, 846});
   g.print();
   return 0;
 }

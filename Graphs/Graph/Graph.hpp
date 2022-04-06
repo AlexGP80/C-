@@ -19,7 +19,7 @@ class Graph {
 public:
   Graph();
   ~Graph();
-  void insert(int data, vector<int> *neighbors);
+  void insert(int data, initializer_list<int> neighbors);
   void print();
 private:
 
